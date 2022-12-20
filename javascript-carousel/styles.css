@@ -1,0 +1,42 @@
+.container {
+  margin: auto;
+  width: 800px;
+  height: 500px;
+  border: 3px solid black;
+}
+
+.row {
+  display: flex;
+  flex-direction: wrap;
+  justify-content: space-around;
+}
+
+.fa-angle-left,
+.fa-angle-right {
+  margin-top: 265px;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.group {
+  display: flex;
+  justify-content: center;
+}
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 0.8rem;
+}
+
+.black {
+  background-color: black;
+}
+
+img {
+  max-width: 500px;
+  max-height: 500px;
+}
