@@ -9,7 +9,7 @@ app.use(function (req, res, next) {
 
 app.use((req, res) => {
   // eslint-disable-next-line no-console
-  console.log(req.method());
+  console.log(req.method);
   res.send('Hello');
 });
 
