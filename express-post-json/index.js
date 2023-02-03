@@ -26,5 +26,6 @@ app.post('/api/grades', (req, res) => {
     score: req.body.score
   };
   res.status(201);
+  res.json(grades[nextId]);
   nextId++;
 });
