@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const data = require('./data.json');
+const fs = require('fs');
 const MiddleWare = express.json();
 app.use(MiddleWare);
 
@@ -20,9 +21,9 @@ app.get('/api/notes/:id', (req, res) => {
 // GET SINGLE NOTE
 app.get('/api/notes/:id', (req, res) => {
   const id = req.params.id;
-  if (parseInt(id) <= 0 || isNaN(id)) {
+  if (parseInt(id) < 1 || isNaN(id)) {
     res.status(400);
-    res.json({ error: 'ID must be a positive int' });
+    res.json({ error: 'ID must be a positive integer' });
   } else if (data.notes[id]) {
     res.json(data.notes[id]);
   } else {
@@ -32,7 +33,6 @@ app.get('/api/notes/:id', (req, res) => {
 });
 
 // CAN POST A NOTE
-const fs = require('fs');
 app.post('/api/notes/', (req, res) => {
   if (req.body.content) {
     res.status(400);
@@ -51,13 +51,13 @@ app.post('/api/notes/', (req, res) => {
       res.json({ error: 'Error' });
     } else {
       res.status(201);
-      res.json(data.notes[data.nextId - 1], { error: 'Success' });
+      res.json(req.body);
     }
   });
 });
 
 // CAN DELETE A NOTE
-app.delete('/api/notes/:id', (res, req) => {
+app.delete('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   if (parseInt(id) <= 0 || isNaN(id)) {
     res.status(400).json({ error: 'ID is not positive integer' });
