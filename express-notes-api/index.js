@@ -37,6 +37,7 @@ app.post('/api/notes/', (req, res) => {
   if (req.body.content) {
     res.status(400);
     res.json({ error: 'Content not found' });
+    return;
   }
   data.notes[data.nextId] = {};
   data.notes[data.nextId].id = data.nextId;
@@ -61,9 +62,11 @@ app.delete('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   if (parseInt(id) <= 0 || isNaN(id)) {
     res.status(400).json({ error: 'ID is not positive integer' });
+    return;
   }
   if (data.notes[id] === undefined) {
     res.status(404).json({ error: 'ID not found' });
+    return;
   }
   delete data.notes[id];
   fs.writeFile('./data.json', JSON.stringify(data, null, 2), err => {
@@ -83,12 +86,15 @@ app.put('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   if (parseInt(id) <= 0 || isNaN(id)) {
     res.status(400).json({ error: 'Not a positive integer' });
+    return;
   }
   if (req.body.content) {
     res.status(400).json({ error: 'Does not have a content property in the request.body' });
+    return;
   }
   if (data.notes[id] === undefined) {
     res.status(400).json({ error: 'Unable to locate id' });
+    return;
   }
   data.notes[id].content = req.body.content;
   fs.writeFile('./data.json', JSON.stringify(data, null, 2), err => {
